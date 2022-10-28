@@ -1,0 +1,52 @@
+.search-form {
+  max-width: 25rem;
+  min-width: 15rem;
+  width: -webkit-fill-available;
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  gap: 1rem;
+  position: relative;
+}
+.search-input {
+  height: 2.6rem;
+  width: 100%;
+  padding: 0 3rem 0 1rem;
+  border-radius: 0.5rem;
+  background: #f0f0f0;
+  box-shadow: 0 1px 2px 0 rgba(146, 144, 129, 0.3);
+  border: 1px solid #c2c2c2;
+  background: none;
+}
+.search-input:focus {
+  box-shadow: 0 3px 2px 0 rgba(146, 144, 129, 0.3);
+}
+.search-input:focus::after {
+  display: none;
+}
+.search-button {
+  width: fit-content;
+  position: absolute;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: center;
+  height: 2.7rem;
+  align-items: center;
+  border-radius: 2rem;
+  transition: 0.2s all ease-in-out;
+  background: none;
+  cursor: pointer;
+}
+.search-icon {
+  color: #2873b6;
+  font-size: 1.3rem;
+}
+.search-button:hover > .search-icon {
+  color: rgb(100, 100, 100);
+}
+.search-input:focus {
+  outline: none;
+}
+[list]::-webkit-calendar-picker-indicator {
+  display: none;
+}

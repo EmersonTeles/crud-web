@@ -1,0 +1,44 @@
+.tableClients {
+  border-collapse: collapse;
+  width: 100%;
+
+  font-family: Arial, Helvetica, sans-serif;
+  &-head {
+    background-color: #fafafa;
+    border-top: 1px solid rgb(180, 180, 180);
+    border-bottom: 1px solid rgb(180, 180, 180);
+    > tr {
+      padding: 0 2rem;
+      > th {
+        padding: 0.75rem 1rem;
+        text-align: center;
+        font-size: 0.75rem;
+        line-height: 1rem;
+        font-weight: 600;
+        color: #2873b6;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+    }
+  }
+  &-body {
+    > tr {
+      border-bottom: 1px solid rgb(240, 240, 240);
+      > td {
+        padding: 0.3rem 0.75rem;
+        text-align: center;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        color: rgb(107, 114, 128);
+      }
+    }
+    &-edit {
+      font-size: 1.4em;
+      color: #2873b6;
+    }
+    &-delete {
+      font-size: 1.4em;
+      color: red;
+    }
+  }
+}
