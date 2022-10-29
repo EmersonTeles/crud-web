@@ -47,7 +47,24 @@
     row-gap: 1rem;
     margin: 1rem 0;
     &:first-child {
-      margin-bottom: 3rem;
+      margin-bottom: 5rem;
+    }
+  }
+  .radioField {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    & > div {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 0.5rem;
+      height: 2.5rem;
+    }
+    & > div > input[type="radio" i] {
+      width: 1.2rem;
+      height: 1.2rem;
+      margin: 0;
     }
   }
   .inputField {
@@ -77,6 +94,11 @@
       border: 1px solid rgb(180, 180, 180);
       background-color: none;
       padding: 0 1rem;
+      &[type="checkbox" i] {
+        width: 2rem;
+        height: 2rem;
+        cursor: pointer;
+      }
       &:focus {
         outline: none;
         border: 2px solid #2873b6;
@@ -95,16 +117,19 @@
   margin: 1rem 0;
   & > button {
     height: 2.5rem;
-    width: 8 rem;
+    width: 8rem;
     border-radius: 0.5rem;
-    color: white;
     font-size: 1.5em;
     font-weight: 600;
   }
   &_save {
-    background-color: #60d1be;
+    background-color: #3ead76;
+    color: white;
   }
   &_cancel {
-    background-color: #ec5c7a;
+    background-color: #ee224b;
+    & > a {
+      color: white;
+    }
   }
 }

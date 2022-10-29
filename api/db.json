@@ -2,9 +2,29 @@
   "users": [
     {
       "id": 1,
-      "name": "John Doe",
-      "email": "Johndoe@email.com",
-      "password": "password"
+      "type": "J",
+      "inscriptionName": "AmazonInc",
+      "companyName": "Amazon",
+      "active": "true",
+      "cnpj": "12345678901234",
+      "stateInsc": "SP",
+      "cityInsc": "001",
+      "contributor": "true",
+      "email": "central@amazon.com",
+      "responsible": "John Doe",
+      "cpf": "12345678901",
+      "telephone": "11987654321",
+      "cellphone": "11987654321",
+      "respEmail": "johndoe@amazon.com",
+      "respBirthDate": "28/05/2002",
+      "cep": "71070059",
+      "city": "Brasília",
+      "uf": "DF",
+      "address": "Setor Comercial Sul",
+      "number": "500",
+      "complement": "Sala 100",
+      "neighborhood": "Asa Sul",
+      "observations": "Observação"
     },
     {
       "id": 2,
