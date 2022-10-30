@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   MaskCEP,
   MaskCPF,
@@ -11,36 +11,13 @@ import {
 import InputField from "./inputField";
 import SelectField from "./selectFIeld";
 import TextAreaField from "./textAreaField";
+import api from "../api/api";
+import { useRouter } from "next/router";
+import { NaturalPersonFormModel } from "../models/naturalPersonModel";
 
-type NaturalPerson = {
-  type: string;
-  name: { content: string; valid: boolean };
-  nickname: { content: string; valid: boolean };
-  cpf: { content: string; valid: boolean };
-  birthDate: { content: string; valid: boolean };
-  maritalStatus: { content: string; valid: boolean };
-  rg: { content: string; valid: boolean };
-  emitter: { content: string; valid: boolean };
-  uf: { content: string; valid: boolean };
-  cnh: { content: string; valid: boolean };
-  security: { content: string; valid: boolean };
-  cei: { content: string; valid: boolean };
-  email: { content: string; valid: boolean };
-  telephone: { content: string; valid: boolean };
-  cellphone: { content: string; valid: boolean };
-  cep: { content: string; valid: boolean };
-  city: { content: string; valid: boolean };
-  uf_adress: { content: string; valid: boolean };
-  address: { content: string; valid: boolean };
-  number: { content: string; valid: boolean };
-  complement: { content: string; valid: boolean };
-  neighborhood: { content: string; valid: boolean };
-  observations: { content: string; valid: boolean };
-};
-
-export default function NaturalPerson() {
-  const cpfReg = new RegExp("[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}");
-  const [form, setForm] = useState<NaturalPerson>({
+export default function NaturalPerson(props: any): JSX.Element {
+  const router = useRouter();
+  const [form, setForm] = useState<NaturalPersonFormModel>({
     type: "F",
     name: { content: "", valid: true },
     nickname: { content: "", valid: true },
@@ -87,7 +64,12 @@ export default function NaturalPerson() {
     } else if (name === "cep") {
       maskedValue = MaskCEP(value);
       setValue(name, maskedValue);
-    } else if (name === "number" || name === "cnh" || name === "security") {
+    } else if (
+      name === "number" ||
+      name === "cnh" ||
+      name === "security" ||
+      name === "cei"
+    ) {
       maskedValue = onlyNumbers(value);
       setValue(name, maskedValue);
     } else {
@@ -154,16 +136,79 @@ export default function NaturalPerson() {
     });
     valid = Object.entries(validFields).every(([, value]) => value);
     if (!valid) {
-      console.log("invalid");
       window.alert("Preencha os campos corretamente");
     }
     return valid;
   }
-  function handleSubmit(event: any) {
+  async function handleSubmit(event: any) {
     event.preventDefault();
-    verifyIsvalid();
-    console.log(form);
+    const clientSubmission = {
+      type: "F",
+      name: form.name.content,
+      nickname: form.nickname.content,
+      cpf: onlyNumbers(form.cpf.content),
+      birthDate: form.birthDate.content,
+      maritalStatus: form.maritalStatus.content,
+      rg: form.rg.content,
+      emitter: form.emitter.content,
+      uf: form.uf.content,
+      cnh: form.cnh.content,
+      security: form.security.content,
+      cei: form.cei.content,
+      email: form.email.content,
+      telephone: onlyNumbers(form.telephone.content),
+      cellphone: onlyNumbers(form.cellphone.content),
+      cep: form.cep.content,
+      city: form.city.content,
+      uf_adress: form.uf_adress.content,
+      address: form.address.content,
+      number: form.number.content,
+      complement: form.complement.content,
+      neighborhood: form.neighborhood.content,
+      observations: form.observations.content,
+    };
+    if (verifyIsvalid()) {
+      try {
+        if (props.param === "new") {
+          await api.post("/clients", clientSubmission);
+        } else {
+          await api.put(`/clients/${props.param}`, clientSubmission);
+        }
+        router.push("/");
+      } catch (err) {
+        console.log(err);
+      }
+    }
   }
+  useEffect(() => {
+    if (props.param != "new") {
+      setForm({
+        ...form,
+        name: { content: props.client.name, valid: true },
+        nickname: { content: props.client.nickname, valid: true },
+        cpf: { content: props.client.cpf, valid: true },
+        birthDate: { content: props.client.birthDate, valid: true },
+        maritalStatus: { content: props.client.maritalStatus, valid: true },
+        rg: { content: props.client.rg, valid: true },
+        emitter: { content: props.client.emitter, valid: true },
+        uf: { content: props.client.uf, valid: true },
+        cnh: { content: props.client.cnh, valid: true },
+        security: { content: props.client.security, valid: true },
+        cei: { content: props.client.cei, valid: true },
+        email: { content: props.client.email, valid: true },
+        telephone: { content: props.client.telephone, valid: true },
+        cellphone: { content: props.client.cellphone, valid: true },
+        cep: { content: props.client.cep, valid: true },
+        city: { content: props.client.city, valid: true },
+        uf_adress: { content: props.client.uf_adress, valid: true },
+        address: { content: props.client.address, valid: true },
+        number: { content: props.client.number, valid: true },
+        complement: { content: props.client.complement, valid: true },
+        neighborhood: { content: props.client.neighborhood, valid: true },
+        observations: { content: props.client.observations, valid: true },
+      });
+    }
+  }, []);
   const MaritalStatus = [
     "Solteiro",
     "Casado",

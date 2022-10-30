@@ -3,7 +3,7 @@ import { BsPlusCircle } from "react-icons/bs";
 
 export default function AddClientButton(): JSX.Element {
   return (
-    <Link className="addClientButton" href="/costumerRegister">
+    <Link className="addClientButton" href="/costumerRegister/new">
       <BsPlusCircle /> Cliente
     </Link>
   );

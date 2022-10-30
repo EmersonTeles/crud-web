@@ -99,9 +99,10 @@
       background-color: none;
       padding: 0 1rem;
       &[type="checkbox" i] {
-        width: 2rem;
-        height: 2rem;
+        width: 1rem;
+        height: 1rem;
         cursor: pointer;
+        margin: auto 0;
       }
       &:focus {
         outline: none;

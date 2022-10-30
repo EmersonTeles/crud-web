@@ -52,6 +52,7 @@ export function MaskTel(value: string): string {
   return value;
 }
 export function MaskCPF(value: string): string {
+  if (value == null) return "";
   value = value.replace(/\D/g, "");
 
   value = value.substring(0, 11);
@@ -62,6 +63,7 @@ export function MaskCPF(value: string): string {
   return value;
 }
 export function MaskCNPJ(value: string): string {
+  if (value == null) return "";
   value = value.replace(/\D/g, "");
 
   value = value.substring(0, 14);

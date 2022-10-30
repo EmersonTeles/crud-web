@@ -1,6 +1,16 @@
 import { MdOutlineEdit } from "react-icons/md";
 import { FiUserX } from "react-icons/fi";
-export default function TableClients(): JSX.Element {
+import { MaskCPF, MaskCNPJ, MaskTel } from "../assets/validations";
+import Link from "next/link";
+import api from "../api/api";
+export default function TableClients(props: any): JSX.Element {
+  async function handleDelete(id: string) {
+    try {
+      await props.deleteClient(id);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <table className="tableClients">
       <thead className="tableClients-head">
@@ -15,22 +25,35 @@ export default function TableClients(): JSX.Element {
         </tr>
       </thead>
       <tbody className="tableClients-body">
-        <tr>
-          <td>1</td>
-          <td>João da Silva</td>
-          <td>123.456.789-00</td>
-          <td>joaodasilva@gmail.com</td>
-          <td>(11) 1234-5678</td>
-          <td>(11) 98765-4321</td>
-          <td>
-            <button className="tableClients-body-edit">
-              <MdOutlineEdit />
-            </button>
-            <button className="tableClients-body-delete">
-              <FiUserX />
-            </button>
-          </td>
-        </tr>
+        {props.clients.map((client: any) => {
+          return (
+            <tr key={client.id}>
+              <td>{client.id}</td>
+              <td>{client.type === "F" ? client.name : client.companyName}</td>
+              <td>
+                {client.type === "F"
+                  ? MaskCPF(client.cpf)
+                  : MaskCNPJ(client.cnpj)}
+              </td>
+              <td>{client.email}</td>
+              <td>{MaskTel(client.telephone)}</td>
+              <td>{MaskTel(client.cellphone)}</td>
+              <td>
+                <button className="tableClients-body-edit">
+                  <Link href={`/costumerRegister/${client.id}`}>
+                    <MdOutlineEdit />
+                  </Link>
+                </button>
+                <button
+                  className="tableClients-body-delete"
+                  onClick={() => handleDelete(client.id)}
+                >
+                  <FiUserX />
+                </button>
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );

@@ -1,5 +1,7 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import api from "../api/api";
 import {
   MaskCEP,
   MaskCNPJ,
@@ -11,35 +13,11 @@ import {
 import InputField from "./inputField";
 import SelectField from "./selectFIeld";
 import TextAreaField from "./textAreaField";
+import { JuristicPersonFormModel } from "../models/juristicPersonModel";
 
-type JuristicPerson = {
-  type: string;
-  inscriptionName: { content: string; valid: boolean };
-  companyName: { content: string; valid: boolean };
-  active: { content: boolean; valid: boolean };
-  cnpj: { content: string; valid: boolean };
-  stateInsc: { content: string; valid: boolean };
-  cityInsc: { content: string; valid: boolean };
-  contributor: { content: boolean; valid: boolean };
-  email: { content: string; valid: boolean };
-  responsible: { content: string; valid: boolean };
-  cpf: { content: string; valid: boolean };
-  telephone: { content: string; valid: boolean };
-  cellphone: { content: string; valid: boolean };
-  respEmail: { content: string; valid: boolean };
-  respBirthDate: { content: string; valid: boolean };
-  cep: { content: string; valid: boolean };
-  city: { content: string; valid: boolean };
-  uf: { content: string; valid: boolean };
-  address: { content: string; valid: boolean };
-  number: { content: string; valid: boolean };
-  complement: { content: string; valid: boolean };
-  neighborhood: { content: string; valid: boolean };
-  observations: { content: string; valid: boolean };
-};
-
-export function JuristicPerson() {
-  const [form, setForm] = useState<JuristicPerson>({
+export function JuristicPerson(props: any): JSX.Element {
+  const router = useRouter();
+  const [form, setForm] = useState<JuristicPersonFormModel>({
     type: "J",
     inscriptionName: { content: "", valid: true },
     companyName: { content: "", valid: true },
@@ -163,17 +141,80 @@ export function JuristicPerson() {
     });
     valid = Object.entries(validFields).every(([, value]) => value);
     if (!valid) {
-      console.log("invalid");
       window.alert("Preencha os campos corretamente");
     }
     return valid;
   }
-  function handleSubmit(event: any) {
+  async function handleSubmit(event: any) {
     event.preventDefault();
-    verifyIsvalid();
-    console.log(form);
+    const clientSubmission = {
+      type: "J",
+      inscriptionName: form.inscriptionName.content,
+      companyName: form.companyName.content,
+      cnpj: onlyNumbers(form.cnpj.content),
+      email: form.email.content,
+      cep: form.cep.content,
+      city: form.city.content,
+      uf: form.uf.content,
+      address: form.address.content,
+      number: form.number.content,
+      neighborhood: form.neighborhood.content,
+      active: form.active.content,
+      stateInsc: form.stateInsc.content,
+      cityInsc: form.cityInsc.content,
+      contributor: form.contributor.content,
+      responsible: form.responsible.content,
+      cpf: form.cpf.content,
+      telephone: onlyNumbers(form.telephone.content),
+      cellphone: onlyNumbers(form.cellphone.content),
+      respEmail: form.respEmail.content,
+      respBirthDate: form.respBirthDate.content,
+      complement: form.complement.content,
+      observations: form.observations.content,
+    };
+    if (verifyIsvalid()) {
+      try {
+        if (props.param === "new") {
+          await api.post("/clients", clientSubmission);
+        } else {
+          await api.put(`/clients/${props.param}`, clientSubmission);
+        }
+        console.log("sucesso", clientSubmission);
+        router.push("/");
+      } catch (err) {
+        console.log(err);
+      }
+    }
   }
-
+  useEffect(() => {
+    if (props.param != "new") {
+      setForm({
+        ...form,
+        inscriptionName: { content: props.client.inscriptionName, valid: true },
+        companyName: { content: props.client.companyName, valid: true },
+        cnpj: { content: props.client.cnpj, valid: true },
+        email: { content: props.client.email, valid: true },
+        cpf: { content: props.client.cpf, valid: true },
+        respEmail: { content: props.client.respEmail, valid: true },
+        respBirthDate: { content: props.client.respBirthDate, valid: true },
+        contributor: { content: props.client.contributor, valid: true },
+        responsible: { content: props.client.responsible, valid: true },
+        stateInsc: { content: props.client.stateInsc, valid: true },
+        cityInsc: { content: props.client.cityInsc, valid: true },
+        active: { content: props.client.active, valid: true },
+        telephone: { content: props.client.telephone, valid: true },
+        cellphone: { content: props.client.cellphone, valid: true },
+        cep: { content: props.client.cep, valid: true },
+        city: { content: props.client.city, valid: true },
+        uf: { content: props.client.uf_adress, valid: true },
+        address: { content: props.client.address, valid: true },
+        number: { content: props.client.number, valid: true },
+        complement: { content: props.client.complement, valid: true },
+        neighborhood: { content: props.client.neighborhood, valid: true },
+        observations: { content: props.client.observations, valid: true },
+      });
+    }
+  }, [props.client]);
   const UFlist = [
     "AC",
     "AL",
@@ -319,7 +360,7 @@ export function JuristicPerson() {
             onChange={handleChange}
             label="Data Nasc. Responsável"
             name="respBirthDate"
-            type="text"
+            type="date"
             valid={form.respBirthDate.valid}
             value={form.respBirthDate.content}
           />
