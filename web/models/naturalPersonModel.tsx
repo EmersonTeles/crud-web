@@ -1,0 +1,25 @@
+export type NaturalPersonFormModel = {
+  type: string;
+  name: { content: string; valid: boolean };
+  nickname: { content: string; valid: boolean };
+  cpf: { content: string; valid: boolean };
+  birthDate: { content: string; valid: boolean };
+  maritalStatus: { content: string; valid: boolean };
+  rg: { content: string; valid: boolean };
+  emitter: { content: string; valid: boolean };
+  uf: { content: string; valid: boolean };
+  cnh: { content: string; valid: boolean };
+  security: { content: string; valid: boolean };
+  cei: { content: string; valid: boolean };
+  email: { content: string; valid: boolean };
+  telephone: { content: string; valid: boolean };
+  cellphone: { content: string; valid: boolean };
+  cep: { content: string; valid: boolean };
+  city: { content: string; valid: boolean };
+  uf_adress: { content: string; valid: boolean };
+  address: { content: string; valid: boolean };
+  number: { content: string; valid: boolean };
+  complement: { content: string; valid: boolean };
+  neighborhood: { content: string; valid: boolean };
+  observations: { content: string; valid: boolean };
+};

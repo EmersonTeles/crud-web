@@ -1,0 +1,25 @@
+export type JuristicPersonFormModel = {
+  type: string;
+  inscriptionName: { content: string; valid: boolean };
+  companyName: { content: string; valid: boolean };
+  active: { content: boolean; valid: boolean };
+  cnpj: { content: string; valid: boolean };
+  stateInsc: { content: string; valid: boolean };
+  cityInsc: { content: string; valid: boolean };
+  contributor: { content: boolean; valid: boolean };
+  email: { content: string; valid: boolean };
+  responsible: { content: string; valid: boolean };
+  cpf: { content: string; valid: boolean };
+  telephone: { content: string; valid: boolean };
+  cellphone: { content: string; valid: boolean };
+  respEmail: { content: string; valid: boolean };
+  respBirthDate: { content: string; valid: boolean };
+  cep: { content: string; valid: boolean };
+  city: { content: string; valid: boolean };
+  uf: { content: string; valid: boolean };
+  address: { content: string; valid: boolean };
+  number: { content: string; valid: boolean };
+  complement: { content: string; valid: boolean };
+  neighborhood: { content: string; valid: boolean };
+  observations: { content: string; valid: boolean };
+};
