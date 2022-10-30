@@ -8,6 +8,7 @@ export default function SelectField(props: any): JSX.Element {
         value={props.value}
         onChange={props.onChange}
       >
+        <option value="">Selecione</option>
         {props?.Items?.map((item: string, index: number) => {
           return (
             <option key={index} value={item}>
@@ -16,6 +17,7 @@ export default function SelectField(props: any): JSX.Element {
           );
         })}
       </select>
+      {props.valid !== undefined && !props.valid && <p>Campo inválido!</p>}
     </div>
   );
 }

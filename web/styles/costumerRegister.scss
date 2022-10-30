@@ -71,7 +71,11 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-
+    & > p {
+      font-size: 0.8em;
+      font-weight: 600;
+      color: #d80000;
+    }
     & > textarea {
       width: 100%;
       height: min-content;
