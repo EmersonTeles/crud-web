@@ -182,6 +182,7 @@ export default function NaturalPerson(props: any): JSX.Element {
   }
   useEffect(() => {
     if (props.param != "new") {
+      console.log("entrou: ", props.client);
       setForm({
         ...form,
         name: { content: props.client.name, valid: true },
@@ -208,7 +209,7 @@ export default function NaturalPerson(props: any): JSX.Element {
         observations: { content: props.client.observations, valid: true },
       });
     }
-  }, []);
+  }, [props.param]);
   const MaritalStatus = [
     "Solteiro",
     "Casado",

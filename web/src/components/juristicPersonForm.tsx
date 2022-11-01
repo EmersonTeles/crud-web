@@ -188,8 +188,9 @@ export function JuristicPerson(props: any): JSX.Element {
   }
   useEffect(() => {
     if (props.param != "new") {
+      console.log("entrou: ", props.client);
       setForm({
-        ...form,
+        type: "J",
         inscriptionName: { content: props.client.inscriptionName, valid: true },
         companyName: { content: props.client.companyName, valid: true },
         cnpj: { content: props.client.cnpj, valid: true },
