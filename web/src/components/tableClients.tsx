@@ -1,8 +1,7 @@
 import { MdOutlineEdit } from "react-icons/md";
 import { FiUserX } from "react-icons/fi";
-import { MaskCPF, MaskCNPJ, MaskTel } from "../assets/validations";
+import { MaskCPF, MaskCNPJ, MaskTel } from "../utils/validations";
 import Link from "next/link";
-import api from "../api/api";
 export default function TableClients(props: any): JSX.Element {
   async function handleDelete(id: string) {
     try {

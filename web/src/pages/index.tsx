@@ -2,7 +2,7 @@ import AddClientButton from "../components/addClientButton";
 import NavBar from "../components/navbar";
 import Search from "../components/search";
 import TableClients from "../components/tableClients";
-import api from "../api/api";
+import api from "../utils/api";
 import { useCallback, useEffect, useRef, useState } from "react";
 export default function Home() {
   const [clients, setClients] = useState<string[]>([]);

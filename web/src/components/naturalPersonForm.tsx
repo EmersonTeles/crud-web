@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   MaskCEP,
   MaskCPF,
@@ -7,11 +7,11 @@ import {
   MaskTel,
   onlyNumbers,
   validCPF,
-} from "../assets/validations";
+} from "../utils/validations";
 import InputField from "./inputField";
 import SelectField from "./selectFIeld";
 import TextAreaField from "./textAreaField";
-import api from "../api/api";
+import api from "../utils/api";
 import { useRouter } from "next/router";
 import { NaturalPersonFormModel } from "../models/naturalPersonModel";
 

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import api from "../api/api";
+import api from "../utils/api";
 import {
   MaskCEP,
   MaskCNPJ,
@@ -9,7 +9,7 @@ import {
   MaskTel,
   onlyNumbers,
   validCNPJ,
-} from "../assets/validations";
+} from "../utils/validations";
 import InputField from "./inputField";
 import SelectField from "./selectFIeld";
 import TextAreaField from "./textAreaField";

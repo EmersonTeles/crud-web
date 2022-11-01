@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import api from "../../api/api";
+import { useCallback, useEffect, useState } from "react";
 import { JuristicPerson } from "../../components/juristicPersonForm";
 import NaturalPerson from "../../components/naturalPersonForm";
 import NavBar from "../../components/navbar";
+import api from "../../utils/api";
 
 export default function CostumerRegisterPage({ param }: any): JSX.Element {
   const [formType, setFormType] = useState<string>("J");
